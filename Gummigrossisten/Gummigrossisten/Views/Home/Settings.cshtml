@@ -1,0 +1,50 @@
+﻿@model  Gummigrossisten.Models.user
+@{
+    ViewBag.Title = "Settings";
+}
+<div style="text-align:center">
+    <h2 style="text-decoration:underline">Inställningar</h2>
+</div>
+
+<div>
+    @using (Html.BeginForm())
+    {
+    <div class="form-container-edit" style="padding-left:41%; padding-top:2%;">
+        <h3 style="color:green">@TempData["correct"]</h3>
+        <h4>Byt lösenord</h4>
+        <div class="form-group">
+            <input type="text" class="form-control" name="userid" maxlength="55" value="@Html.DisplayFor(Model => Model.userID)" id="userid" readonly hidden>
+        </div>
+        <div class="form-group">
+            <label>Användarnamn</label>
+            <input type="text" class="form-control" name="username" maxlength="55" value="@Html.DisplayFor(Model => Model.username)" id="username" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Nuvarande lösenord</label>
+            <input type="password" class="form-control" name="currentpassword" maxlength="55" id="currentpassword">
+            <small class="form-text text-muted">Fyll i ditt nuvarande lösenord</small>
+            <small style="color:red">@TempData["felsettings"]</small>
+        </div>
+
+        <div class="form-group">
+            <label>Nytt lösenord</label>
+            <input type="password" class="form-control" name="newpass" maxlength="55" id="newpass">
+            <small class="form-text text-muted">Fyll i ditt nya lösenord</small>
+            <small style="color:red">@TempData["felsettings"]</small>
+        </div>
+
+        <div class="form-group">
+            <label>Nytt lösenord igen</label>
+            <input type="password" class="form-control" name="newpassagain" maxlength="55" id="newpassagain">
+            <small class="form-text text-muted">Fyll i ditt nya lösenord igen</small>
+            <small style="color:red">@TempData["felsettings"]</small>
+        </div>
+
+        <div class="edit-button-container">
+            <input type="submit" class="btn btn-success btn-lg" id="klar" value="Spara ändringar">
+        </div>
+
+    </div>
+    }
+</div>

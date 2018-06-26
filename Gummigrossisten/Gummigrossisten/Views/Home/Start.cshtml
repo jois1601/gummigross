@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Gummigrossisten.Models.tire>
+@{
+    ViewBag.Title = "Start";
+}
+@using (Html.BeginForm())
+{
+    <div style="float:right">
+        <h4>Inloggad som: @TempData["username"] </h4> 
+        <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"]})
+      | <img id="settingslogo" src="~/Content/Pictures/exit.png"/> @Html.ActionLink("Logga ut", "index")
+    </div>
+    <br/>
+    <div>
+        <h4>Sök bland våra däck</h4>
+        <div class="login-form-container">
+            <div class="form-group" id="username-container">
+                <label>Sök på dimension</label>
+                <input type="text" class="form-control" name="search" maxlength="55" id="search">
+            </div>
+        </div>
+        <div class="slutfor-button-login">
+            <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+        </div>
+        <br/>
+    </div>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tableth" scope="col">Märke</th>
+                    <th class="tableth" scope="col">Dimension</th>
+                    <th class="tableth" scope="col">Typ</th>
+                    <th class="tableth" scope="col">Säsong</th>
+                    <th class="tableth" scope="col">Bärighet</th>
+                    <th class="tableth" scope="col">Rullmotstånd</th>
+                    <th class="tableth" scope="col">Bromssträcka</th>
+                    <th class="tableth" scope="col">Ljudnivå</th>
+                    <th class="tableth" scope="col">Pris inkl. moms</th>
+                    <th class="tableth" scope="col">Lagersaldo</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                if(TempData["price"].ToString() == "2")
+                { 
+                    <tr>
+                    <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.outpriceA)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                </tr>
+
+                }
+                else if(TempData["price"].ToString() == "3")
+                {
+                     <tr>
+                    <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.outpriceB)</td>
+                    <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                </tr>
+
+                }
+
+            }
+
+        </table>
+    </div>
+    <br/>
+}

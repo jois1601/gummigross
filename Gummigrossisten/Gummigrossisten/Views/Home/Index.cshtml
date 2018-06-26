@@ -2,7 +2,27 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
 
+<div class="login-container">
+        @using (Html.BeginForm())
+        {
+            <h2>Kundlogin</h2>
+            <div class="login-form-container">
+                <div class="form-group" id="username-container">
+                    <label>Användarnamn</label>
+                    <input type="text" class="form-control" name="username" maxlength="55" id="username">
+                    <small style="color:red">@TempData["felinlogg"]</small>
+                </div>
 
+                <div class="form-group" id="password-container">
+                    <label>Lösenord</label>
+                    <input type="password" class="form-control" name="password" maxlength="55" id="password">
+                    <small style="color:red">@TempData["felinlogg"]</small>
+                </div>
+            </div>
+            <div class="slutfor-button-login">
+                <input type="submit" class="btn btn-success btn-lg" id="login" value="Logga in">
+            </div>
+        }
 </div>
+
