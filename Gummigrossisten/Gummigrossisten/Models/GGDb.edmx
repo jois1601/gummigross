@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="gummi_grossisten_se_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="access">
+          <Key>
+            <PropertyRef Name="accessID" />
+          </Key>
+          <Property Name="accessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="news">
+          <Key>
+            <PropertyRef Name="newsID" />
+          </Key>
+          <Property Name="newsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="1000" />
+          <Property Name="text" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="tire">
+          <Key>
+            <PropertyRef Name="tireID" />
+          </Key>
+          <Property Name="tireID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="brand" Type="varchar" MaxLength="255" />
+          <Property Name="dimension" Type="varchar" MaxLength="255" />
+          <Property Name="type" Type="varchar" MaxLength="255" />
+          <Property Name="season" Type="varchar" MaxLength="255" />
+          <Property Name="tirebearingcapacity" Type="varchar" MaxLength="255" />
+          <Property Name="rollingresistance" Type="varchar" MaxLength="255" />
+          <Property Name="breakingdistance" Type="varchar" MaxLength="255" />
+          <Property Name="sounddecibel" Type="varchar" MaxLength="255" />
+          <Property Name="inprice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="outpriceA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="outpriceB" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="balance" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="55" />
+          <Property Name="password" Type="varchar" MaxLength="55" />
+          <Property Name="fk_access_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__user__fk_access___3B75D760">
+          <End Role="access" Type="Self.access" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access">
+              <PropertyRef Name="accessID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="fk_access_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gummi_grossisten_se_dbModelStoreContainer">
+          <EntitySet Name="access" EntityType="Self.access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tire" EntityType="Self.tire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__user__fk_access___3B75D760" Association="Self.FK__user__fk_access___3B75D760">
+            <End Role="access" EntitySet="access" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gummi_grossisten_se_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="gummi_grossisten_se_dbEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="access" EntityType="gummi_grossisten_se_dbModel.access" />
+          <EntitySet Name="news" EntityType="gummi_grossisten_se_dbModel.news" />
+          <EntitySet Name="tire" EntityType="gummi_grossisten_se_dbModel.tire" />
+          <EntitySet Name="user" EntityType="gummi_grossisten_se_dbModel.user" />
+          <AssociationSet Name="FK__user__fk_access___3B75D760" Association="gummi_grossisten_se_dbModel.FK__user__fk_access___3B75D760">
+            <End Role="access" EntitySet="access" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="access">
+          <Key>
+            <PropertyRef Name="accessID" />
+          </Key>
+          <Property Name="accessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="gummi_grossisten_se_dbModel.FK__user__fk_access___3B75D760" FromRole="access" ToRole="user" />
+        </EntityType>
+        <EntityType Name="news">
+          <Key>
+            <PropertyRef Name="newsID" />
+          </Key>
+          <Property Name="newsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tire">
+          <Key>
+            <PropertyRef Name="tireID" />
+          </Key>
+          <Property Name="tireID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brand" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dimension" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="season" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="tirebearingcapacity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rollingresistance" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="breakingdistance" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sounddecibel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="inprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="outpriceA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="outpriceB" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="balance" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="fk_access_id" Type="Int32" />
+          <NavigationProperty Name="access" Relationship="gummi_grossisten_se_dbModel.FK__user__fk_access___3B75D760" FromRole="user" ToRole="access" />
+        </EntityType>
+        <Association Name="FK__user__fk_access___3B75D760">
+          <End Type="gummi_grossisten_se_dbModel.access" Role="access" Multiplicity="0..1" />
+          <End Type="gummi_grossisten_se_dbModel.user" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="access">
+              <PropertyRef Name="accessID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="fk_access_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gummi_grossisten_se_dbModelStoreContainer" CdmEntityContainer="gummi_grossisten_se_dbEntities" >
+          <EntitySetMapping Name="access">
+            <EntityTypeMapping TypeName="gummi_grossisten_se_dbModel.access">
+              <MappingFragment StoreEntitySet="access">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="accessID" ColumnName="accessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="news">
+            <EntityTypeMapping TypeName="gummi_grossisten_se_dbModel.news">
+              <MappingFragment StoreEntitySet="news">
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="newsID" ColumnName="newsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tire">
+            <EntityTypeMapping TypeName="gummi_grossisten_se_dbModel.tire">
+              <MappingFragment StoreEntitySet="tire">
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="outpriceB" ColumnName="outpriceB" />
+                <ScalarProperty Name="outpriceA" ColumnName="outpriceA" />
+                <ScalarProperty Name="inprice" ColumnName="inprice" />
+                <ScalarProperty Name="sounddecibel" ColumnName="sounddecibel" />
+                <ScalarProperty Name="breakingdistance" ColumnName="breakingdistance" />
+                <ScalarProperty Name="rollingresistance" ColumnName="rollingresistance" />
+                <ScalarProperty Name="tirebearingcapacity" ColumnName="tirebearingcapacity" />
+                <ScalarProperty Name="season" ColumnName="season" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="dimension" ColumnName="dimension" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="tireID" ColumnName="tireID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="gummi_grossisten_se_dbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="fk_access_id" ColumnName="fk_access_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

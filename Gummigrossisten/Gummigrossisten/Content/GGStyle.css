@@ -1,0 +1,25 @@
+﻿body {
+
+
+
+}
+
+#logo
+{
+    max-height: 200px; 
+    max-width: 500px; 
+    height: auto; 
+    width:auto; 
+}
+
+@media only screen and (max-width: 580px)
+{
+
+#logo
+{
+    height:100%; 
+    width:100%; 
+
+}
+
+} 
