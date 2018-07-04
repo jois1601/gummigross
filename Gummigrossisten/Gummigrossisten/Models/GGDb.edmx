@@ -33,9 +33,9 @@
           <Property Name="rollingresistance" Type="varchar" MaxLength="255" />
           <Property Name="breakingdistance" Type="varchar" MaxLength="255" />
           <Property Name="sounddecibel" Type="varchar" MaxLength="255" />
-          <Property Name="inprice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="outpriceA" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="outpriceB" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="inprice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="outpriceA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="outpriceB" Type="decimal" Precision="18" Scale="2" />
           <Property Name="balance" Type="int" />
         </EntityType>
         <EntityType Name="user">
@@ -112,9 +112,9 @@
           <Property Name="rollingresistance" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="breakingdistance" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="sounddecibel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="inprice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="outpriceA" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="outpriceB" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="inprice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="outpriceA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="outpriceB" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="balance" Type="Int32" />
         </EntityType>
         <EntityType Name="user">

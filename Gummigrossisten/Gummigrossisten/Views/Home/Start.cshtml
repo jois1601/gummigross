@@ -7,7 +7,7 @@
     <div style="float:right">
         <h4>Inloggad som: @TempData["username"] </h4> 
         <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"]})
-      | <img id="settingslogo" src="~/Content/Pictures/exit.png"/> @Html.ActionLink("Logga ut", "index")
+      | <img id="settingslogo" src="~/Content/Pictures/exit.png"/> @Html.ActionLink("Logga ut", "Login")
     </div>
 
     <div id="nyheter" style="float:right; background-color: lightgray; margin-right: 10%; text-align:center; max-width:600px;">
@@ -54,7 +54,7 @@
                     <th class="tableth" scope="col">Bärighet</th>
                     <th class="tableth" scope="col">Rullmotstånd</th>
                     <th class="tableth" scope="col">Bromssträcka</th>
-                    <th class="tableth" scope="col">Ljudnivå</th>
+                    <th class="tableth" scope="col">Ljudnivå(dB)</th>
                     <th class="tableth" scope="col">Pris inkl. moms</th>
                     <th class="tableth" scope="col">Lagersaldo</th>
                 </tr>

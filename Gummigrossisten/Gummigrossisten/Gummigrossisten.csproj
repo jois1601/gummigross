@@ -229,6 +229,7 @@
     <Compile Include="Models\user.cs">
       <DependentUpon>GGDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\VMAdmin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -315,6 +316,9 @@
     <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Home\AdminStart.cshtml" />
     <Content Include="Views\Home\EditTire.cshtml" />
+    <Content Include="Views\Home\AdminSettings.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\CreateTire.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

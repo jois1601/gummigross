@@ -47,6 +47,11 @@ namespace Gummigrossisten.DbOps
                 return null;
             }
         }
+        public List<user> GetAllUsers()
+        {
+            List<user> UserList = db.user.ToList();
+            return UserList;
+        }
         public List<tire> GetAlltires(string search, string season)
         {
             if(search == "" || search == null)
@@ -119,6 +124,31 @@ namespace Gummigrossisten.DbOps
             tire theTire = db.tire.Find(id);
 
             return theTire;
+        }
+        public void UpdateTire(tire thetire)
+        {
+            try
+            {
+                tire theNewTire = db.tire.Single(x => x.tireID == thetire.tireID);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void CreateTire(tire theTires)
+        {
+            try
+            {
+                tire theTire = theTires;
+                db.tire.Add(theTire);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

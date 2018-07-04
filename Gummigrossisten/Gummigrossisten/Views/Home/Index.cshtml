@@ -1,28 +1,102 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Gummigrossisten.Models.tire>
+@{
+    ViewBag.Title = "Start";
 }
+@using (Html.BeginForm())
+{
+    <div style="float:right">
+        <h4>Inloggad som: @TempData["username"] </h4>
+        <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"] })
+        | <img id="settingslogo" src="~/Content/Pictures/exit.png" /> @Html.ActionLink("Logga ut", "Login")
+    </div>
 
+    <div id="nyheter" style="float:right; background-color: lightgray; margin-right: 10%; text-align:center; max-width:600px;">
 
-<div class="login-container" style="margin-left:35%;">
-        @using (Html.BeginForm())
-        {
-            <h2 style="margin-left:5%; margin-bottom:5%;">Kundlogin</h2>
-            <div class="login-form-container">
-                <div class="form-group" id="username-container">
-                    <label>Användarnamn</label>
-                    <input type="text" class="form-control" name="username" maxlength="55" id="username">
-                    <small style="color:red">@TempData["felinlogg"]</small>
-                </div>
+        <h4 style="text-decoration:underline;">Aktuell information till våra kunder</h4>
 
-                <div class="form-group" id="password-container">
-                    <label>Lösenord</label>
-                    <input type="password" class="form-control" name="password" maxlength="55" id="password">
-                    <small style="color:red">@TempData["felinlogg"]</small>
-                </div>
+        <p style="text-align:center; color:black;">*Alla våra priser på sidan är alltid inklusive moms</p>
+        <p style="text-align:center; color:black;">*Vi reserverar oss för eventuella felskrivningar utav priser och övrig information gällande våra däck</p>
+
+    </div>
+
+    <br />
+    <div>
+        <h4>Sök bland våra däck</h4>
+        <div class="login-form-container">
+            <div class="form-group" id="username-container">
+                <label>Sök på dimension eller märke</label>
+                <input type="text" class="form-control" name="search" maxlength="55" id="search">
             </div>
-            <div class="slutfor-button-login" style="margin-left:13%;">
-                <input type="submit" class="btn btn-success btn-lg" id="login" value="Logga in">
-            </div>
-        }
-</div>
+            <div class="form-group" id="username-container">
+                <label>Välj säsong</label>
+                <select class="form-control" id="season" name="season">
+                    <option>ALLA</option>
+                    <option>SOMMAR</option>
+                    <option>VINTER</option>
 
+                </select>
+            </div>
+        </div>
+        <div class="slutfor-button-login">
+            <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+        </div>
+        <br />
+    </div>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tableth" scope="col">Märke</th>
+                    <th class="tableth" scope="col">Dimension</th>
+                    <th class="tableth" scope="col">Typ</th>
+                    <th class="tableth" scope="col">Säsong</th>
+                    <th class="tableth" scope="col">Bärighet</th>
+                    <th class="tableth" scope="col">Rullmotstånd</th>
+                    <th class="tableth" scope="col">Bromssträcka</th>
+                    <th class="tableth" scope="col">Ljudnivå(dB)</th>
+                    <th class="tableth" scope="col">Pris inkl. moms</th>
+                    <th class="tableth" scope="col">Lagersaldo</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                if (TempData["price"].ToString() == "2")
+                {
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceA)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                    </tr>
+
+                }
+                else if (TempData["price"].ToString() == "3")
+                {
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceB)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                    </tr>
+
+                }
+
+            }
+
+        </table>
+    </div>
+    <br />
+}

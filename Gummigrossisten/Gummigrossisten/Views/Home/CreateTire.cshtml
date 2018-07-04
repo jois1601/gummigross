@@ -1,103 +1,94 @@
-﻿@model Gummigrossisten.Models.tire
-@{
-    ViewBag.Title = "EditTire";
+﻿@{
+    ViewBag.Title = "CreateTire";
 }
+
 <div style="width:100%; float:left;">
     <p style="visibility:hidden">@TempData["user"]</p>
     <h4> @Html.ActionLink("⇚ Tillbaka till startsidan", "AdminStart", new { id = TempData["user"] })</h4>
 </div>
-<div class="tabcontent">
+<div id="lagg-till-dack" class="tabcontent">
 
-
-    <h1 style="margin-bottom:5%; text-align:center; text-decoration:underline">Redigera däck</h1>
-
+    <h1 style="margin-bottom:5%;">Lägg till nytt däck</h1>
     @using (Html.BeginForm())
     {
-
-        <h4 style="color:green; ">@TempData["UpdateTire"]</h4>
+        <h4 style="color:green; margin-left:0%;">@TempData["CreatedTire"]</h4>
         <form>
             <fieldset>
 
                 <div style="margin-left:40%;" class="form-group">
-                    <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">ID</label>
-                    <input type="text" class="form-control" value="@Html.DisplayFor(Model => Model.tireID)" name="tireID" id="tireID" readonly>
-                    <small style="margin-right:69%" class="form-text text-muted"></small>
-                </div>
-
-                <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Märke</label>
-                    <input type="text" class="form-control" name="brand" id="brand" value="@Html.DisplayFor(Model => Model.brand)" required>
+                    <input type="text" class="form-control" name="brand" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets märke(tillverkare)</small>
                 </div>
 
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Dimension</label>
-                    <input type="text" class="form-control" name="dimension" id="dimension" value="@Html.DisplayFor(Model => Model.dimension)" required>
+                    <input type="text" class="form-control" name="dimension" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets dimension</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Typ</label>
-                    <input type="text" class="form-control" name="type" id="type" value="@Html.DisplayFor(Model => Model.type)" required>
+                    <input type="text" class="form-control" name="type" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets typ</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Säsong</label>
-                    <input type="text" class="form-control" name="season" id="season" value="@Html.DisplayFor(Model => Model.season)" required>
+                    <input type="text" class="form-control" name="season"  required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i säsong "Sommar" eller "Vinter"</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Bärighet</label>
-                    <input type="text" class="form-control" name="tbc" id="tbc" value="@Html.DisplayFor(Model => Model.tirebearingcapacity)" required>
+                    <input type="text" class="form-control" name="tbc" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets bärighet</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Rullmotstånd</label>
-                    <input type="text" class="form-control" name="rl" id="rl" value="@Html.DisplayFor(Model => Model.rollingresistance)" required>
+                    <input type="text" class="form-control" name="rl" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets rullmotstånd</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Bromssträcka</label>
-                    <input type="text" class="form-control" name="bd" id="bd" value="@Html.DisplayFor(Model => Model.breakingdistance)" required>
+                    <input type="text" class="form-control" name="bd" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets bromssträcka</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Ljudnivå</label>
-                    <input type="text" class="form-control" name="sd" id="sd" value="@Html.DisplayFor(Model => Model.sounddecibel)" pattern="\d*" required>
+                    <input type="text" class="form-control" name="sd" pattern="\d*" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets ljudnivå</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Inköpspris</label>
-                    <input type="text" class="form-control" name="inprice" id="inprice" value="@Html.DisplayFor(Model => Model.inprice)" pattern="[-+]?[0-9]*[,]?[0-9]+" required>
+                    <input type="text" class="form-control" name="inprice" pattern="[-+]?[0-9]*[,]?[0-9]+" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets inköpspris</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">A-pris</label>
-                    <input type="text" class="form-control" name="outpriceA" id="outpriceA" value="@Html.DisplayFor(Model => Model.outpriceA)" pattern="[-+]?[0-9]*[,]?[0-9]+" required>
+                    <input type="text" class="form-control" name="outpriceA"  pattern="[-+]?[0-9]*[,]?[0-9]+" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets A-pris</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">B-pris</label>
-                    <input type="text" class="form-control" name="outpriceB" id="outpriceB" value="@Html.DisplayFor(Model => Model.outpriceB)" pattern="[-+]?[0-9]*[,]?[0-9]+" required>
+                    <input type="text" class="form-control" name="outpriceB" pattern="[-+]?[0-9]*[,]?[0-9]+" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets B-pris</small>
                 </div>
 
                 <div style="margin-left:40%;" class="form-group">
                     <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Lagersaldo</label>
-                    <input type="text" class="form-control" name="balance" id="balance" value="@Html.DisplayFor(Model => Model.balance)" pattern="\d*" required>
+                    <input type="text" class="form-control" name="balance" pattern="\d*" required>
                     <small style="margin-right:69%" class="form-text text-muted">Fyll i lagersaldo</small>
                 </div>
 
-                <button style="margin-top:3%; margin-left:44%" type="submit" class="btn btn-primary">Uppdatera</button>
+                <button style="margin-top:3%;" type="submit" class="btn btn-primary">Lägg till däck</button>
 
 
             </fieldset>
@@ -108,4 +99,3 @@
     }
 
 </div>
-
