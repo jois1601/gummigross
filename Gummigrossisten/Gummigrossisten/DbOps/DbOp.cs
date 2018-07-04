@@ -47,20 +47,53 @@ namespace Gummigrossisten.DbOps
                 return null;
             }
         }
-        public List<tire> GetAlltires(string search)
+        public List<tire> GetAlltires(string search, string season)
         {
-            if(search != "")
+            if(search == "" || search == null)
             {
-                var tireslist = db.tire.Where(x => x.dimension.Contains(search)).ToList();
-                List<tire> SortedList = tireslist.OrderByDescending(x => x.balance).ToList();
-                return SortedList;
+
+                if (season == "SOMMAR")
+                {
+                    var tires = db.tire.Where(x=>x.season == "SOMMAR").ToList();
+                    List<tire> SortedList = tires.OrderByDescending(x => x.balance).ToList();
+
+                    return SortedList;
+                }
+                else if (season == "VINTER")
+                {
+                    var tires = db.tire.Where(x => x.season == "VINTER").ToList();
+                    List<tire> SortedList = tires.OrderByDescending(x => x.balance).ToList();
+
+                    return SortedList;
+                }
+                else
+                {
+                    var tires = db.tire.ToList();
+                    List<tire> SortedList = tires.OrderByDescending(x => x.balance).ToList();
+
+                    return SortedList;
+                }
             }
             else
             {
-                var tires = db.tire.ToList();
-                List<tire> SortedList = tires.OrderByDescending(x => x.balance).ToList();
-
-                return SortedList;
+                if(season == "SOMMAR")
+                {
+                    var tireslist = db.tire.Where(x => x.dimension.Contains(search) && x.season == "SOMMAR" || x.brand.Contains(search) && x.season == "SOMMAR").ToList();
+                    List<tire> SortedList = tireslist.OrderByDescending(x => x.balance).ToList();
+                    return SortedList;
+                }
+                else if(season == "VINTER")
+                {
+                    var tireslist = db.tire.Where(x => x.dimension.Contains(search) && x.season == "VINTER" || x.brand.Contains(search) && x.season == "VINTER").ToList();
+                    List<tire> SortedList = tireslist.OrderByDescending(x => x.balance).ToList();
+                    return SortedList;
+                }
+                else
+                {
+                    var tireslist = db.tire.Where(x => x.dimension.Contains(search) || x.brand.Contains(search)).ToList();
+                    List<tire> SortedList = tireslist.OrderByDescending(x => x.balance).ToList();
+                    return SortedList;
+                }
 
             }
             
@@ -80,6 +113,12 @@ namespace Gummigrossisten.DbOps
             }
 
 
+        }
+        public tire GetATire(int id)
+        {
+            tire theTire = db.tire.Find(id);
+
+            return theTire;
         }
     }
 }
