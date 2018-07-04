@@ -32,10 +32,20 @@ namespace Gummigrossisten.Controllers
                 TempData["felinlogg"] = "Felaktiga inloggningsuppgifter!";
                 return View();
             }
-            else
+            else if (user.fk_access_id== 2)
             {
                 TempData["felinlogg"] = "";
                 return RedirectToAction("Start", "Home", new { id = user.userID});
+            }
+            else if (user.fk_access_id == 3)
+            {
+                TempData["felinlogg"] = "";
+                return RedirectToAction("Start", "Home", new { id = user.userID });
+            }
+            else
+            {
+                TempData["felinlogg"] = "";
+                return RedirectToAction("AdminStart", "Home", new { id = user.userID });
             }
 
         }
@@ -54,6 +64,24 @@ namespace Gummigrossisten.Controllers
             List<tire> tirelist = dbc.GetAlltires(search);
             return View(tirelist);
         }
+
+        public ActionResult AdminStart(int id)
+        {
+            user theuser = new user();
+            theuser = dbc.GetUser(id);
+            string search = "";
+            TempData["username"] = theuser.username;
+            TempData["userID"] = theuser.userID;
+            TempData["price"] = theuser.fk_access_id.ToString();
+            List<tire> tirelist = dbc.GetAlltires(search);
+            return View(tirelist);
+        }
+
+        public ActionResult EditTire()
+        {
+            return View(); 
+        }
+
         [HttpPost]
         public ActionResult Start(FormCollection form)
         {

@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DbOps\DbOp.cs" />
@@ -238,7 +239,9 @@
     <Content Include="Content\Pictures\exit.png" />
     <Content Include="Content\Pictures\logopng.png" />
     <Content Include="Content\Pictures\logo.jpg" />
+    <Content Include="Content\Pictures\massadäck.jpg" />
     <Content Include="Content\Pictures\Settings.png" />
+    <Content Include="Content\Pictures\worker.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -310,9 +313,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Home\AdminStart.cshtml" />
+    <Content Include="Views\Home\EditTire.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

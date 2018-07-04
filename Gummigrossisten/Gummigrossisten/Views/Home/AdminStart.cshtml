@@ -1,0 +1,346 @@
+﻿
+@model IEnumerable<Gummigrossisten.Models.tire>
+
+
+
+@{
+    ViewBag.Title = "AdminStart";
+}
+{
+
+    <h2 style="text-align:center; text-decoration:underline;">Adminpanel</h2>
+
+    <div style="float:right">
+        <h4>Inloggad som: @TempData["username"] </h4>
+        <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"] })
+        | <img id="settingslogo" src="~/Content/Pictures/exit.png" /> @Html.ActionLink("Logga ut", "index")
+    </div>
+
+
+    <div style=" vertical-align:middle; text-align:center; padding-bottom:2%;  margin-top: 1%;  margin-left:21%;">
+
+        <img src="~/Content/Pictures/worker.jpg" style="width:20%; max-height:240px;height:auto;" />
+
+    </div>
+
+
+
+    <div class="tablinkselection" style="margin-left:19%; margin-bottom:3%;">
+
+        <button class="tablink" onclick="openPage('sok-dack', this, 'white')" id="defaultOpen">Sök och redigera däck</button>
+        <button class="tablink" onclick="openPage('lagg-till-dack', this, 'white')">Lägg till nytt däck</button>
+        <button class="tablink" onclick="openPage('sok-anvandare', this, 'white')">Sök och redigera användare</button>
+        <button class="tablink" onclick="openPage('skapa-anvandare', this, 'white')">Skapa ny användare</button>
+        <button class="tablink" onclick="openPage('uppdatera-nyheter', this, 'white')">Uppdatera nyhetsrutan</button>
+
+    </div>
+
+    <div class="tabcontent-container">
+
+        <div id="sok-dack" class="tabcontent">
+
+            <h1>Sök och redigera däck</h1>
+
+            <div style="float:left;">
+                <h4>Sök i lagret</h4>
+                <div class="login-form-container">
+                    <div class="form-group" id="username-container">
+                        <label>Sök på dimension eller märke</label>
+                        <input type="text" class="form-control" name="search" maxlength="55" id="search">
+                    </div>
+                </div>
+                <div class="slutfor-button-login">
+                    <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+                </div>
+                <br />
+            </div>
+
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="tableth" scope="col">Märke</th>
+                            <th class="tableth" scope="col">Dimension</th>
+                            <th class="tableth" scope="col">Typ</th>
+                            <th class="tableth" scope="col">Säsong</th>
+                            <th class="tableth" scope="col">Inköpspris</th>
+                            <th class="tableth" scope="col">Prislista A</th>
+                            <th class="tableth" scope="col">Prislista B</th>
+                            <th class="tableth" scope="col">Lagersaldo</th>
+                            <th class="tableth" scope="col"></th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                {
+
+
+
+                    {
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.inprice)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceA)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceB)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                        <td> <input style="color:white; background-color:#4BBF73;" type="button" value="Redigera däck" onclick="window.location.href = '@Url.Action("EditTire", "Home")'; " />   </td>
+
+
+                    </tr>
+                }
+
+            }
+
+                </table>
+            </div>
+
+
+        </div>
+
+        <div id="lagg-till-dack" class="tabcontent">
+            <h1 style="margin-bottom:5%;">Lägg till nytt däck</h1>
+
+
+            <form>
+                <fieldset>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Märke</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets märke(tillverkare)</small>
+                    </div>
+
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Dimension</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets dimension</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Typ</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets typ</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Säsong</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i säsong "Sommar" eller "Vinter"</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Bärighet</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets bärighet</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Rullmotstånd</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets rullmotstånd</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Bromssträcka</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets bromssträcka</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Ljudnivå</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets ljudnivå</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Inköpspris</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets inköpspris</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">A-pris</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets A-pris</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">B-pris</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i däckets B-pris</small>
+                    </div>
+
+                    <div style="margin-left:40%;" class="form-group">
+                        <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Lagersaldo</label>
+                        <input type="text" class="form-control">
+                        <small style="margin-right:69%" class="form-text text-muted">Fyll i lagersaldo</small>
+                    </div>
+
+                    <button style="margin-top:3%;" type="submit" class="btn btn-primary">Lägg till däck</button>
+
+
+                </fieldset>
+
+            </form>
+
+
+
+
+        </div>
+
+
+
+        <div id="sok-anvandare" class="tabcontent">
+
+            <h1 style="margin-bottom:5%;">Sök och redigera användare</h1>
+
+            <div style="float:left;">
+                <h4>Sök efter kund/användare</h4>
+                <div class="login-form-container">
+                    <div class="form-group" id="username-container">
+                        <label>Sök på användarnamn</label>
+                        <input style="margin-left:14%;" type="text" class="form-control" name="search" maxlength="55" id="search">
+                    </div>
+                </div>
+                <div class="slutfor-button-login">
+                    <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+                </div>
+                <br />
+            </div>
+
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="tableth" scope="col">Kund</th>
+                            <th class="tableth" scope="col">Lösenord</th>
+                            <th class="tableth" scope="col">Prislista</th>
+                            <th class="tableth" scope="col"></th>
+                            <th class="tableth" scope="col"></th>
+
+
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                {
+
+
+
+                    {
+                        <tr>
+                            <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                            <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                            <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+
+                            <td> <button style="color:white; background-color:#4BBF73;">Redigera Användare</button> </td>
+
+                        </tr>
+                }
+
+            }
+
+                </table>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div id="skapa-anvandare" class="tabcontent">
+            <h1 style="margin-bottom:5%;">Skapa ny användare/kund</h1>
+            <br />
+
+            <div style="margin-left:40%;" class="form-group">
+                <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Användarnamn</label>
+                <input type="text" class="form-control">
+                <small style="margin-right:69%" class="form-text text-muted">Välj kundens användarnamn</small>
+            </div>
+
+
+            <div style="margin-left:40%;" class="form-group">
+                <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Lösenord</label>
+                <input type="text" class="form-control">
+                <small style="margin-right:69%" class="form-text text-muted">Välj kundens Lösenord</small>
+            </div>
+
+            <div style="margin-left:40%;" class="form-group">
+                <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Upprepa lösenord</label>
+                <input type="text" class="form-control">
+                <small style="margin-right:69%" class="form-text text-muted">Upprepa kundens lösenord</small>
+            </div>
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="">
+                    Billiga prislistan
+                </label>
+            </div>
+
+            <div style="margin-top:2%;" class="form-check disabled">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="">
+                    Dyra prislistan
+                </label>
+            </div>
+
+            <button style="margin-top:3%;" type="submit" class="btn btn-primary">Skapa användaren</button>
+
+
+        </div>
+
+
+
+
+
+        <div id="uppdatera-nyheter" class="tabcontent">
+
+            <h1 style="margin-bottom:5%;">Uppdatera nyhetsrutan</h1>
+
+            <div>
+                <div class="login-form-container">
+                    <div class="form-group" id="username-container">
+                        <label>Skriv aktuell information till kunderna</label>
+                        <input type="text" class="form-control" maxlength="500" style="height:200px; margin-left:40%;">
+                    </div>
+                </div>
+                <div class="slutfor-button-login">
+                    <input type="submit" class="btn btn-success btn-lg" id="login" value="Uppdatera texten">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function openPage(pageName, elmnt, color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
+
+
+
+}

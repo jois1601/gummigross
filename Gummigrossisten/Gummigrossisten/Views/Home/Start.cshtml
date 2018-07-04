@@ -9,12 +9,22 @@
         <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"]})
       | <img id="settingslogo" src="~/Content/Pictures/exit.png"/> @Html.ActionLink("Logga ut", "index")
     </div>
+
+    <div id="nyheter" style="float:right; background-color: lightgray; margin-right: 10%; text-align:center; max-width:600px;">
+
+        <h4 style="text-decoration:underline;">Aktuell information till våra kunder</h4>
+
+        <p style="text-align:center; color:black;">*Alla våra priser på sidan är alltid inklusive moms</p>
+        <p style="text-align:center; color:black;">*Vi reserverar oss för eventuella felskrivningar utav priser och övrig information gällande våra däck</p>
+
+    </div>
+
     <br/>
     <div>
         <h4>Sök bland våra däck</h4>
         <div class="login-form-container">
             <div class="form-group" id="username-container">
-                <label>Sök på dimension</label>
+                <label>Sök på dimension eller märke</label>
                 <input type="text" class="form-control" name="search" maxlength="55" id="search">
             </div>
         </div>
