@@ -9,7 +9,7 @@ namespace Gummigrossisten.Models.ViewModel
     {
         public List<tire> TireList { get; set; }
         public List<user> UserList { get; set; }
-
+        public news News { get; set; }
 
     }
 }

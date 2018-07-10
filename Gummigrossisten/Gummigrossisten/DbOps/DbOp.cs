@@ -19,14 +19,24 @@ namespace Gummigrossisten.DbOps
         {
             user user = new user();
             var username1 = username.ToLower();
-            var users = db.user.Where(x => x.username == username1 && x.password == password).ToList();
+            var password1 = password;
+
+            var users = db.user.Where(x => x.username == username1).ToList();
             if (users.Count == 1)
             {
                 foreach (var item in users)
                 {
                     user = item;
                 }
-                return user;
+                if(user.password == password1)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+                
             }
             else
             {
@@ -149,6 +159,73 @@ namespace Gummigrossisten.DbOps
             {
 
             }
+        }
+        public void CreateUser(user theUsers)
+        {
+            try
+            {
+                var isthereusers = db.user.Where(x => x.username == theUsers.username).ToList();
+
+                if(isthereusers.Count == 0)
+                {
+                    user theuser = theUsers;
+                    db.user.Add(theuser);
+                    db.SaveChanges();
+                }
+                
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void DeleteTire(int id)
+        {
+            try
+            {
+                var tire = db.tire.Find(id);
+
+                db.Entry(tire).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void DeleteUser(int id)
+        {
+            try
+            {
+                var user = db.user.Find(id);
+
+                db.Entry(user).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public news GetTheNews(int id)
+        {
+            news thenews = db.news.Find(id);
+            return thenews;
+        }
+        public void UpdateNews(news thenews)
+        {
+            try
+            {
+                news nyheten = db.news.Single(x => x.newsID == thenews.newsID);
+                db.SaveChanges();
+
+
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
     }
 }

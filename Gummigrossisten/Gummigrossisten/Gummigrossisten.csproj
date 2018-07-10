@@ -319,6 +319,10 @@
     <Content Include="Views\Home\AdminSettings.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\CreateTire.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
+    <Content Include="Views\Home\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

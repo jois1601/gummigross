@@ -42,6 +42,16 @@ namespace Gummigrossisten.Controllers
                 return RedirectToAction("Login", "Home");
             }
         }
+        public ActionResult PageNotFound()
+        {
+            Response.StatusCode = 404;
+            return View();
+        }
+        public ActionResult Error()
+        {
+            Response.StatusCode = 505;
+            return View();
+        }
         public ActionResult Login()
       {
             if (Request.Cookies["User"] != null)
@@ -121,8 +131,20 @@ namespace Gummigrossisten.Controllers
                     TempData["username"] = theuser.username;
                     TempData["userID"] = theuser.userID;
                     TempData["price"] = theuser.fk_access_id.ToString();
+
+                    VMAdmin vmad = new VMAdmin();
+
                     List<tire> tirelist = dbc.GetAlltires(search, season);
-                    return View(tirelist);
+
+
+                    List<tire> tirelists = dbc.GetAlltires(search, season);
+                    List<user> UserList = dbc.GetAllUsers();
+                    news thenews = dbc.GetTheNews(1);
+                    vmad.TireList = tirelist;
+                    vmad.UserList = UserList;
+                    vmad.News = thenews;
+
+                    return View(vmad);
 
                 }
                 else
@@ -143,7 +165,6 @@ namespace Gummigrossisten.Controllers
         [HttpPost]
         public ActionResult Start(FormCollection form)
         {
-            //Innan vi listar ut däcken måste vi försöka spara vem som är inloggad på ett bra sätt!! Cookie?
             HttpCookie Newcookie = Request.Cookies["User"];
             Newcookie.Expires = DateTime.Now.AddHours(5);
 
@@ -157,7 +178,6 @@ namespace Gummigrossisten.Controllers
         }
         public ActionResult AdminStart(int id, string search, string season)
         {
-            //strul med viewmodel!!!!!!!
 
             VMAdmin vmad = new VMAdmin();
             user theuser = new user();
@@ -180,9 +200,30 @@ namespace Gummigrossisten.Controllers
                     TempData["price"] = theuser.fk_access_id.ToString();
                     List<tire> tirelist = dbc.GetAlltires(search, season);
                     List<user> UserList = dbc.GetAllUsers();
+                    news thenews = dbc.GetTheNews(1);
+
+                    //foreach (var u in UserList)
+                    //{
+                    //    vmad.UserList.Add(u);
+                    //}
+                    //foreach (var t in tirelist)
+                    //{
+                    //    vmad.TireList.Add(t);
+                    //}
                     vmad.TireList = tirelist;
                     vmad.UserList = UserList;
-                    return View(vmad);
+                    vmad.News = thenews;
+                    try
+                    {
+                        return View(vmad);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        return View();
+                    }
+                    
 
                 }
                 else
@@ -210,9 +251,35 @@ namespace Gummigrossisten.Controllers
             user theuser = new user();
             theuser = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
             TempData["user"] = theuser.userID;
-            var searcha = form["search"];
+            var searcha = form["searchadmin"];
             var season = form["season"];
 
+            var newsbutton = form["newsbutton"];
+            var newstext = form["newstext"];
+            var newstitle = form["newstitle"];
+
+            var deletetire = form["deletetire"];
+            var deleteuser = form["deleteuser"];
+
+            if(deletetire != null && deleteuser == null)
+            {
+                //ta bort däck
+                dbc.DeleteTire(Convert.ToInt32(deletetire));
+            }
+            if(deleteuser != null && deletetire == null)
+            {
+                //ta bort user
+                dbc.DeleteUser(Convert.ToInt32(deleteuser));
+            }
+            if(newsbutton != null)
+            {
+                //ändra nyheterna
+                news nyheter = dbc.GetTheNews(Convert.ToInt32(newsbutton));
+                nyheter.title = newstitle;
+                nyheter.text = newstext;
+                dbc.UpdateNews(nyheter);
+                
+            }
             return RedirectToAction("AdminStart", "Home", new { id = theuser.userID, search = searcha, season = season });
         }
 
@@ -279,6 +346,54 @@ namespace Gummigrossisten.Controllers
             theuser = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
             TempData["user"] = theuser.userID;
             return View(theTire);
+        }
+        public ActionResult EditUser(int id)
+        {
+            HttpCookie Newcookie = Request.Cookies["User"];
+
+            if (Newcookie.Value == "1" || Newcookie.Value == "4")
+            {
+                Newcookie.Expires = DateTime.Now.AddHours(5);
+                user theuser = new user();
+                theuser = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
+                TempData["user"] = theuser.userID;
+
+                user aUser = dbc.GetUser(id);
+                return View(aUser);
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult EditUser(FormCollection form)
+        {
+            var userID = form["userID"];
+            var pricelist = form["pricelist"];
+
+
+            user theuser1 = dbc.GetUser(Convert.ToInt32(userID));
+            if(pricelist == "BILLIGA PRISLISTAN")
+            {
+                theuser1.fk_access_id = 2;
+            }
+            if (pricelist == "DYRA PRISLISTAN")
+            {
+                theuser1.fk_access_id = 3;
+            }
+
+            dbc.UpdateUser(theuser1);
+
+
+            TempData["UpdateUser"] = "Du har uppdaterat användaren!";
+            HttpCookie Newcookie = Request.Cookies["User"];
+            Newcookie.Expires = DateTime.Now.AddHours(5);
+            user theuser = new user();
+            theuser = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
+            TempData["user"] = theuser.userID;
+            return View(theuser1);
         }
         public ActionResult AdminSettings(int id)
         {
@@ -453,6 +568,65 @@ namespace Gummigrossisten.Controllers
             theuser = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
             TempData["user"] = theuser.userID;
             return View();
+        }
+        public ActionResult CreateUser()
+        {
+            HttpCookie Newcookie = Request.Cookies["User"];
+            if (Newcookie.Value == "1" || Newcookie.Value == "4")
+            {
+                Newcookie.Expires = DateTime.Now.AddHours(5);
+                user user = new user();
+                user = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
+                TempData["user"] = user.userID;
+
+                return View(user);
+
+            }
+            else
+            {
+                return RedirectToAction("login", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult CreateUser(FormCollection form)
+        {
+            var username = form["username"];
+            var password = form["password"];
+            var passwordagain = form["passwordagain"];
+            var pricelist = form["pricelist"];
+
+            if(password == passwordagain)
+            {
+                user theuser = new user();
+                theuser.username = username;
+                theuser.password = password;
+
+                if(pricelist == "BILLIGA PRISLISTAN")
+                {
+                    theuser.fk_access_id = 2;
+                }
+                if(pricelist == "DYRA PRISLISTAN")
+                {
+                    theuser.fk_access_id = 3;
+                }
+
+                dbc.CreateUser(theuser);
+                TempData["createdUser"] = "Du har nu lagt till en ny användare!";
+                HttpCookie Newcookie = Request.Cookies["User"];
+                Newcookie.Expires = DateTime.Now.AddHours(5);
+                user theusers = new user();
+                theusers = dbc.GetUser(Convert.ToInt32(Newcookie.Value));
+                TempData["user"] = theusers.userID;
+                return View();
+
+            }
+            else
+            {
+                TempData["passwordmatch"] = "Lösenorden är inte likadana!";
+                return View();
+            }
+
+
         }
 
     }

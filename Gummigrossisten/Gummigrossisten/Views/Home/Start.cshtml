@@ -1,48 +1,46 @@
-﻿@model IEnumerable<Gummigrossisten.Models.tire>
+﻿@model Gummigrossisten.Models.ViewModel.VMAdmin
 @{
     ViewBag.Title = "Start";
 }
 @using (Html.BeginForm())
 {
     <div style="float:right">
-        <h4>Inloggad som: @TempData["username"] </h4> 
-        <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"]})
-      | <img id="settingslogo" src="~/Content/Pictures/exit.png"/> @Html.ActionLink("Logga ut", "Login")
+        <h4>Inloggad som: @TempData["username"] </h4>
+        <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"] })
+        | <img id="settingslogo" src="~/Content/Pictures/exit.png" /> @Html.ActionLink("Logga ut", "Login")
     </div>
+    <div style="width:80%; display:block;">
 
-    <div id="nyheter" style="float:right; background-color: lightgray; margin-right: 10%; text-align:center; max-width:600px;">
-
-        <h4 style="text-decoration:underline;">Aktuell information till våra kunder</h4>
-
-        <p style="text-align:center; color:black;">*Alla våra priser på sidan är alltid inklusive moms</p>
-        <p style="text-align:center; color:black;">*Vi reserverar oss för eventuella felskrivningar utav priser och övrig information gällande våra däck</p>
-
-    </div>
-
-    <br/>
-    <div>
-        <h4>Sök bland våra däck</h4>
-        <div class="login-form-container">
-            <div class="form-group" id="username-container">
-                <label>Sök på dimension eller märke</label>
-                <input type="text" class="form-control" name="search" maxlength="55" id="search">
-            </div>
-            <div class="form-group" id="username-container">
-                <label>Välj säsong</label>
-                <select class="form-control" id="season" name="season">
-                    <option>ALLA</option>
-                    <option>SOMMAR</option>
-                    <option>VINTER</option>
-                    
-                </select>
-            </div>
+        <div id="nyheter" style="background-color: lightgray; margin-right: 5%; text-align:center; width:55%; height:300px; float:right; margin-left:2%;padding:1%;">
+            <h2 style="text-decoration:underline;">@Html.DisplayFor(Model => Model.News.title)</h2>
+            <br/>
+            <h5 style="text-align:center; color:black; line-height:30px;">@Html.DisplayFor(Model => Model.News.text)</h5>
         </div>
-        <div class="slutfor-button-login">
-            <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
-        </div>
-        <br/>
-    </div>
 
+        <br />
+        <div style="width:30%;float:left;">
+            <h4>Sök bland våra däck</h4>
+            <div class="login-form-container">
+                <div class="form-group" id="username-container">
+                    <label>Sök på dimension eller märke</label>
+                    <input type="text" class="form-control" name="search" maxlength="55" id="search">
+                </div>
+                <div class="form-group" id="username-container">
+                    <label>Välj säsong</label>
+                    <select class="form-control" id="season" name="season">
+                        <option>ALLA</option>
+                        <option>SOMMAR</option>
+                        <option>VINTER</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="slutfor-button-login">
+                <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+            </div>
+            <br />
+        </div>
+    </div>
     <div>
         <table class="table table-hover">
             <thead>
@@ -59,38 +57,53 @@
                     <th class="tableth" scope="col">Lagersaldo</th>
                 </tr>
             </thead>
-            @foreach (var item in Model)
+            @foreach (var item in Model.TireList)
             {
-                if(TempData["price"].ToString() == "2")
-                { 
+                if (TempData["price"].ToString() == "2")
+                {
                     <tr>
-                    <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.outpriceA)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
-                </tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceA)</td>
+                        @if(item.balance < 11)
+                        {
+                            <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                        }
+                        else
+                        {
+                            <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                        }
+                    </tr>
 
                 }
-                else if(TempData["price"].ToString() == "3")
+                else if (TempData["price"].ToString() == "3")
                 {
-                     <tr>
-                    <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.outpriceB)</td>
-                    <td class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
-                </tr>
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.tirebearingcapacity)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.rollingresistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.breakingdistance)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.sounddecibel)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => item.outpriceB)</td>
+                        @if(item.balance < 11)
+                        {
+                            <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                        }
+                        else
+                        {
+                            <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => item.balance)</td>
+                        }
+
+                    </tr>
 
                 }
 
@@ -98,5 +111,5 @@
 
         </table>
     </div>
-    <br/>
+    <br />
 }

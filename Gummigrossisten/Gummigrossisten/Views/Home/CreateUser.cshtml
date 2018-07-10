@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "CreateUser";
+}
+
+<div style="width:100%; float:left;">
+    <p style="visibility:hidden">@TempData["user"]</p>
+    <h4> @Html.ActionLink("⇚ Tillbaka till startsidan", "AdminStart", new { id = TempData["user"] })</h4>
+</div>
+
+<div id="lagg-till-dack" class="tabcontent">
+
+    <h1 style="margin-bottom:5%;">Lägg till ny användare</h1>
+    @using (Html.BeginForm())
+    {
+        <h4 style="color:green; margin-left:0%;">@TempData["CreatedUser"]</h4>
+        <h4 style="color:red; margin-left:0%;">@TempData["passwordmatch"]</h4>
+
+        <form>
+            <fieldset>
+
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Användarnamn</label>
+                    <input type="text" class="form-control" name="username" required>
+                    <small style="margin-right:69%" class="form-text text-muted">Fyll i användarnamn</small>
+                </div>
+
+
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Lösenord</label>
+                    <input type="password" class="form-control" name="password" required>
+                    <small style="margin-right:69%" class="form-text text-muted">Fyll i lösenord</small>
+                </div>
+
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Upprepa lösenordet</label>
+                    <input type="password" class="form-control" name="passwordagain" required>
+                    <small style="margin-right:69%" class="form-text text-muted">Fyll i lösenordet igen</small>
+                </div>
+
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%;font-weight:bold; color:black; font-size:20px;">Välj prislista</label>
+                    <select class="form-control" id="pricelist" name="pricelist">
+                        <option>BILLIGA PRISLISTAN</option>
+                        <option>DYRA PRISLISTAN</option>
+
+                    </select>
+                </div>
+
+
+
+                <button style="margin-top:3%;" type="submit" class="btn btn-success">Lägg till ny användare</button>
+
+
+            </fieldset>
+
+        </form>
+
+
+    }
+
+</div>
