@@ -237,6 +237,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\GGStyle.css" />
+    <Content Include="Content\Pictures\däckicon.png" />
     <Content Include="Content\Pictures\exit.png" />
     <Content Include="Content\Pictures\logopng.png" />
     <Content Include="Content\Pictures\logo.jpg" />
@@ -270,6 +271,8 @@
     <Content Include="Models\GGDb.edmx.diagram">
       <DependentUpon>GGDb.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
