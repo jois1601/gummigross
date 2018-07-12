@@ -19,12 +19,36 @@
                 <input type="password" class="form-control" name="password" maxlength="55" id="password">
                 <small style="color:red">@TempData["felinlogg"]</small>
             </div>
-<div class="slutfor-button-login" style="margin-left:12%;">
-            <input type="submit" class="btn btn-success btn-lg" id="login" value="Logga in">
-        </div>
+            <div class="slutfor-button-login" style="margin-left:12%;">
+                <input type="submit" class="btn btn-success btn-lg" id="login" value="Logga in">
+            </div>
 
         </div>
-        
+
     }
 </div>
 
+<div id="cookieConsent">
+    <div id="closeCookieConsent">x</div>
+    <div class="cookie-text-and-button">
+        <div class="cookie-text">
+            <p style="font-size:15px;"><b>Den här webbplatsen använder sig utav cookies. Dessa cookies behövs för att tjänsterna ska fungera.  </b></p>
+        </div>
+        <div class="cookie-button">
+            <button class="btn btn-success btn-group-lg" id="cookieConsentOK">Jag förstår</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#cookieConsent").fadeIn(200);
+        }, 2000);
+        $("#closeCookieConsent, #cookieConsentOK").click(function () {
+            $("#cookieConsent").fadeOut(200);
+        });
+    });
+</script>

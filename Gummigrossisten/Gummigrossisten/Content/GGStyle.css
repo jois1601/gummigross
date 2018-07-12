@@ -43,8 +43,64 @@
 .tabcontent
 {
     text-align:center; 
-} 
+}
+#cookieConsent {
+    background-color: rgba(20,20,20,0.8);
+    min-height: 80px;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 26px;
+    padding: 8px 0 8px 30px;
+    font-family: Calibri;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 9999;
+}
 
+#closeCookieConsent {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    font-weight: bold;
+}
+
+    #closeCookieConsent:hover {
+        color: #FFF;
+    }
+
+.cookie-text-and-button {
+    display: inline-block;
+    width: 100%;
+}
+
+.cookie-text {
+    width: 60%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+    margin-left: 15%;
+}
+
+.cookie-button {
+    width: 8%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    margin-left: 1%;
+}
+
+#cookieConsentOK {
+    float: left;
+    margin-top: 1%;
+    margin-right: 5%;
+}
 
 @media only screen and (max-width: 580px) {
     #logo
@@ -54,4 +110,27 @@
 
 }
 
+    .cookie-text-and-button {
+        display: grid;
+        width: 100%;
+    }
+
+    .cookie-text {
+        width: 80%;
+        height: 100%;
+        float: left;
+        padding-top: 10px;
+        margin-left: 0;
+    }
+
+    .cookie-button {
+        width: 80%;
+        height: 100%;
+        text-align: center;
+        margin-left: 30%;
+    }
+
+    #cookieConsentOK {
+        margin-top: 1%;
+    } 
 } 
