@@ -9,8 +9,13 @@
 
 <h2 style="text-align:center; text-decoration:underline;">Adminpanel</h2>
 
+<div style="width:100%; height:40px;">
+    <div style="float:right">
+        <h4>Inloggad som: @TempData["username"]</h4>
+    </div>
+</div>
+
 <div style="float:right">
-    <h4>Inloggad som: @TempData["username"] </h4>
     <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "AdminSettings", new { id = TempData["userID"] })
     | <img id="settingslogo" src="~/Content/Pictures/exit.png" /> @Html.ActionLink("Logga ut", "Login")
 </div>
@@ -26,7 +31,7 @@
 
 <div class="tablinkselection" style="margin-left:36%; margin-bottom:3%;">
 
-    <button class="tablink"  onclick="openPage('sok-dack', this, 'white')" id="defaultOpen">Hantera däck</button>
+    <button class="tablink" onclick="openPage('sok-dack', this, 'white')" id="defaultOpen">Hantera däck</button>
     <button class="tablink" onclick="openPage('sok-anvandare', this, 'white')">Hantera användare</button>
     <button class="tablink" onclick="openPage('uppdatera-nyheter', this, 'white')">Uppdatera nyhetsrutan</button>
 
@@ -94,17 +99,17 @@
                             <td class="tabletd">@Html.DisplayFor(Model => t.inprice)</td>
                             <td class="tabletd">@Html.DisplayFor(Model => t.outpriceA)</td>
                             <td class="tabletd">@Html.DisplayFor(Model => t.outpriceB)</td>
-                        @if(t.balance < 11)
-                        {
-                            <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
-                        }
-                        else
-                        {
-                            <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
-                        }
+                            @if (t.balance < 11)
+                            {
+                                <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
+                            }
+                            else
+                            {
+                                <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
+                            }
                             <td> <input class="btn btn-warning" style="color:white; " type="button" value="Redigera däck" onclick="window.location.href = '@Url.Action("EditTire", "Home", new { id = t.tireID })'; " />   </td>
 
-                            <td> <button class="btn btn-danger"  value="@t.tireID" name="deletetire" id="deletetire">Ta Bort</button></td>
+                            <td> <button class="btn btn-danger" value="@t.tireID" name="deletetire" id="deletetire">Ta Bort</button></td>
 
                         </tr>
 
@@ -183,12 +188,12 @@
                 <div class="login-form-container">
                     <div style="margin-left:40%;" class="form-group">
                         <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Titel</label>
-                        <input type="text" class="form-control" value="@Html.DisplayFor(Model => Model.News.title)" name="newstitle">
+                        <input type="text" class="form-control" maxlength="60" value="@Html.DisplayFor(Model => Model.News.title)" name="newstitle">
                         <small style="margin-right:69%" class="form-text text-muted">Fyll i titeln på nyheten</small>
                     </div>
                     <div style="margin-left:40%;" class="form-group">
                         <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Nyhetstext</label>
-                        <textarea class="form-control" name="newstext" value="" rows="10" maxlength="999" style="max-height:500px; min-height:80px;" id="newstext">@Html.DisplayFor(Model => Model.News.text)</textarea>
+                        <textarea class="form-control" name="newstext" value="" rows="10" maxlength="288" style="max-height:500px; min-height:80px;" id="newstext">@Html.DisplayFor(Model => Model.News.text)</textarea>
                         <small style="margin-right:69%" class="form-text text-muted">Fyll i nyhetstexten</small>
                     </div>
                 </div>

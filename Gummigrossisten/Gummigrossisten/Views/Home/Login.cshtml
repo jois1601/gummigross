@@ -3,7 +3,7 @@
 }
 
 
-<div class="login-container" style="margin-left:35%;">
+<div class="login-container" style="margin-left:35%; margin-bottom:100px;">
     @using (Html.BeginForm())
     {
         <h2 style="margin-left:5%; margin-bottom:5%;">Kundlogin</h2>
@@ -19,10 +19,12 @@
                 <input type="password" class="form-control" name="password" maxlength="55" id="password">
                 <small style="color:red">@TempData["felinlogg"]</small>
             </div>
-        </div>
-        <div class="slutfor-button-login" style="margin-left:13%;">
+<div class="slutfor-button-login" style="margin-left:12%;">
             <input type="submit" class="btn btn-success btn-lg" id="login" value="Logga in">
         </div>
+
+        </div>
+        
     }
 </div>
 

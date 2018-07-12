@@ -4,8 +4,13 @@
 }
 @using (Html.BeginForm())
 {
+    <div style="width:100%; height:40px;">
+        <div style="float:right">
+            <h4>Inloggad som: @TempData["username"]</h4>
+        </div>
+    </div>
+
     <div style="float:right">
-        <h4>Inloggad som: @TempData["username"] </h4>
         <img id="settingslogo" src="~/Content/Pictures/settings.png" /> @Html.ActionLink("Mina inställningar", "Settings", new { id = TempData["userID"] })
         | <img id="settingslogo" src="~/Content/Pictures/exit.png" /> @Html.ActionLink("Logga ut", "Login")
     </div>
