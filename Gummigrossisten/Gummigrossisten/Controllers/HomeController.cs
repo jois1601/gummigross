@@ -257,16 +257,16 @@ namespace Gummigrossisten.Controllers
             var newsbutton = form["newsbutton"];
             var newstext = form["newstext"];
             var newstitle = form["newstitle"];
-
+            var deletetire2 = form["deletetire2"];
             var deletetire = form["deletetire"];
             var deleteuser = form["deleteuser"];
 
-            if(deletetire != null && deleteuser == null)
+            if (deletetire2 != null && deleteuser == null)
             {
                 //ta bort däck
-                dbc.DeleteTire(Convert.ToInt32(deletetire));
+                dbc.DeleteTire(Convert.ToInt32(deletetire2));
             }
-            if(deleteuser != null && deletetire == null)
+            if (deleteuser != null && deletetire == null)
             {
                 //ta bort user
                 dbc.DeleteUser(Convert.ToInt32(deleteuser));

@@ -38,174 +38,195 @@
 </div>
 @using (Html.BeginForm())
 {
-    <div class="tabcontent-container">
+<div class="tabcontent-container">
 
-        <div id="sok-dack" class="tabcontent">
+    <div id="sok-dack" class="tabcontent">
 
-            <h1>Hantera däck</h1>
+        <h1>Hantera däck</h1>
 
-            <div style="float:left; width:20%">
-                <h4>Sök i lagret</h4>
+        <div style="float:left; width:20%">
+            <h4>Sök i lagret</h4>
+            <div class="login-form-container">
+                <div class="form-group" id="username-container">
+                    <label>Sök på dimension eller märke</label>
+                    <input type="text" class="form-control" name="searchadmin" maxlength="55" id="searchadmin">
+                </div>
+                <div class="form-group" id="username-container">
+                    <label>Välj säsong</label>
+                    <select class="form-control" id="season" name="season">
+                        <option>ALLA</option>
+                        <option>SOMMAR</option>
+                        <option>VINTER</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="slutfor-button-login">
+                <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
+            </div>
+            <br />
+        </div>
+        <div style="float:right; width:80%; padding-top:5%; padding-right:20%;">
+            <input class="btn btn-success btn-lg" style="color:white; background-color:#4BBF73;" type="button" value="Lägg till nytt däck" onclick="window.location.href = '@Url.Action("CreateTire", "Home")';" />
+        </div>
+
+        <div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="tableth" scope="col">Märke</th>
+                        <th class="tableth" scope="col">Dimension</th>
+                        <th class="tableth" scope="col">Typ</th>
+                        <th class="tableth" scope="col">Säsong</th>
+                        <th class="tableth" scope="col">Inköpspris</th>
+                        <th class="tableth" scope="col">Prislista A</th>
+                        <th class="tableth" scope="col">Prislista B</th>
+                        <th class="tableth" scope="col">Lagersaldo</th>
+                        <th class="tableth" scope="col"></th>
+                        <th class="tableth" scope="col"></th>
+
+                    </tr>
+                </thead>
+                @foreach (var t in Model.TireList)
+                {
+
+
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => t.brand)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.dimension)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.type)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.season)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.inprice)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.outpriceA)</td>
+                        <td class="tabletd">@Html.DisplayFor(Model => t.outpriceB)</td>
+                        @if (t.balance < 11)
+                        {
+                            <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
+                        }
+                        else
+                        {
+                            <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
+                        }
+                        <td> <input class="btn btn-warning" style="color:white; " type="button" value="Redigera däck" onclick="window.location.href = '@Url.Action("EditTire", "Home", new { id = t.tireID })'; " />   </td>
+
+                        <td> <button class="btn btn-danger getValue" value="@t.tireID" name="deletetire" onclick="testa(this)" data-toggle="modal" data-target="#myModal" id="deletetire">Ta Bort</button>
+                        </td>
+
+
+                    </tr>
+
+
+                }
+
+            </table>
+        </div>
+
+
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ta bort</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Är du säker på att du vill ta bort detta däck? </p>
+                    <p class="showId"></p>
+                </div>
+                <div class="modal-footer">
+                    <button style="background-color:red;" type="submit"  id="deletetire2"  name="deletetire2" class="btn btn-primary deletetire2">Ja</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nej</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sok-anvandare" class="tabcontent">
+
+        <h1 style="margin-bottom:2%;">Hantera användare</h1>
+
+        @*<div style="float:left; width:20%;">
+                <h4>Sök efter kund/användare</h4>
                 <div class="login-form-container">
                     <div class="form-group" id="username-container">
-                        <label>Sök på dimension eller märke</label>
-                        <input type="text" class="form-control" name="searchadmin" maxlength="55" id="searchadmin">
-                    </div>
-                    <div class="form-group" id="username-container">
-                        <label>Välj säsong</label>
-                        <select class="form-control" id="season" name="season">
-                            <option>ALLA</option>
-                            <option>SOMMAR</option>
-                            <option>VINTER</option>
-
-                        </select>
+                        <label>Sök på användarnamn</label>
+                        <input style="margin-left:14%;" type="text" class="form-control" name="search" maxlength="55" id="search">
                     </div>
                 </div>
                 <div class="slutfor-button-login">
                     <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
                 </div>
                 <br />
-            </div>
-            <div style="float:right; width:80%; padding-top:5%; padding-right:20%;">
-                <input class="btn btn-success btn-lg" style="color:white; background-color:#4BBF73;" type="button" value="Lägg till nytt däck" onclick="window.location.href = '@Url.Action("CreateTire", "Home")';" />
-            </div>
-
-            <div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th class="tableth" scope="col">Märke</th>
-                            <th class="tableth" scope="col">Dimension</th>
-                            <th class="tableth" scope="col">Typ</th>
-                            <th class="tableth" scope="col">Säsong</th>
-                            <th class="tableth" scope="col">Inköpspris</th>
-                            <th class="tableth" scope="col">Prislista A</th>
-                            <th class="tableth" scope="col">Prislista B</th>
-                            <th class="tableth" scope="col">Lagersaldo</th>
-                            <th class="tableth" scope="col"></th>
-                            <th class="tableth" scope="col"></th>
-
-                        </tr>
-                    </thead>
-                    @foreach (var t in Model.TireList)
-                    {
+            </div>*@
+        <div style="float:right; width:80%; padding-top:2%; padding-right:20%; margin-bottom:5%;">
+            <input class="btn btn-success btn-lg" style="color:white; background-color:#4BBF73;" type="button" value="Lägg till ny användare" onclick="window.location.href = '@Url.Action("CreateUser", "Home")';" />
+        </div>
+        <br />
+        <div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="tableth" scope="col">Kund</th>
+                        <th class="tableth" scope="col">Prislista</th>
+                        <th class="tableth" scope="col"></th>
+                        <th class="tableth" scope="col"></th>
 
 
-                        <tr>
-                            <th class="tabletd">@Html.DisplayFor(Model => t.brand)</th>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.dimension)</td>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.type)</td>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.season)</td>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.inprice)</td>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.outpriceA)</td>
-                            <td class="tabletd">@Html.DisplayFor(Model => t.outpriceB)</td>
-                            @if (t.balance < 11)
-                            {
-                                <td style="color:red;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
-                            }
-                            else
-                            {
-                                <td style="color:green;" class="tabletd">@Html.DisplayFor(Model => t.balance)</td>
-                            }
-                            <td> <input class="btn btn-warning" style="color:white; " type="button" value="Redigera däck" onclick="window.location.href = '@Url.Action("EditTire", "Home", new { id = t.tireID })'; " />   </td>
+                    </tr>
+                </thead>
 
-                            <td> <button class="btn btn-danger" value="@t.tireID" name="deletetire" id="deletetire">Ta Bort</button></td>
+                @foreach (var u in Model.UserList.Where(x => x.fk_access_id != 1))
+                {
 
-                        </tr>
+                    <tr>
+                        <th class="tabletd">@Html.DisplayFor(Model => u.username)</th>
+                        <td class="tabletd">@Html.DisplayFor(Model => u.access.name)</td>
+
+                        <td> <input class="btn btn-warning" style="color:white; " type="button" value="Redigera användare" onclick="window.location.href = '@Url.Action("EditUser", "Home", new { id = u.userID })'; " />   </td>
+                        <td> <button class="btn btn-danger" value="@u.userID" name="deleteuser">Ta Bort</button></td>
+
+                    </tr>
 
 
-                    }
+                }
 
-                </table>
-            </div>
-
-
+            </table>
         </div>
 
 
+    </div>
 
+    <div id="uppdatera-nyheter" class="tabcontent">
 
-        <div id="sok-anvandare" class="tabcontent">
+        <h1 style="margin-bottom:5%;">Uppdatera nyhetsrutan</h1>
 
-            <h1 style="margin-bottom:2%;">Hantera användare</h1>
-
-            @*<div style="float:left; width:20%;">
-                    <h4>Sök efter kund/användare</h4>
-                    <div class="login-form-container">
-                        <div class="form-group" id="username-container">
-                            <label>Sök på användarnamn</label>
-                            <input style="margin-left:14%;" type="text" class="form-control" name="search" maxlength="55" id="search">
-                        </div>
-                    </div>
-                    <div class="slutfor-button-login">
-                        <input type="submit" class="btn btn-success btn-lg" id="login" value="Sök">
-                    </div>
-                    <br />
-                </div>*@
-            <div style="float:right; width:80%; padding-top:2%; padding-right:20%; margin-bottom:5%;">
-                <input class="btn btn-success btn-lg" style="color:white; background-color:#4BBF73;" type="button" value="Lägg till ny användare" onclick="window.location.href = '@Url.Action("CreateUser", "Home")';" />
-            </div>
-            <br />
-            <div>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th class="tableth" scope="col">Kund</th>
-                            <th class="tableth" scope="col">Prislista</th>
-                            <th class="tableth" scope="col"></th>
-                            <th class="tableth" scope="col"></th>
-
-
-                        </tr>
-                    </thead>
-
-                    @foreach (var u in Model.UserList.Where(x => x.fk_access_id != 1))
-                    {
-
-                        <tr>
-                            <th class="tabletd">@Html.DisplayFor(Model => u.username)</th>
-                            <td class="tabletd">@Html.DisplayFor(Model => u.access.name)</td>
-
-                            <td> <input class="btn btn-warning" style="color:white; " type="button" value="Redigera användare" onclick="window.location.href = '@Url.Action("EditUser", "Home", new { id = u.userID })'; " />   </td>
-                            <td> <button class="btn btn-danger" value="@u.userID" name="deleteuser">Ta Bort</button></td>
-
-                        </tr>
-
-
-                    }
-
-                </table>
-            </div>
-
-
-        </div>
-
-        <div id="uppdatera-nyheter" class="tabcontent">
-
-            <h1 style="margin-bottom:5%;">Uppdatera nyhetsrutan</h1>
-
-            <div>
-                <div class="login-form-container">
-                    <div style="margin-left:40%;" class="form-group">
-                        <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Titel</label>
-                        <input type="text" class="form-control" maxlength="60" value="@Html.DisplayFor(Model => Model.News.title)" name="newstitle">
-                        <small style="margin-right:69%" class="form-text text-muted">Fyll i titeln på nyheten</small>
-                    </div>
-                    <div style="margin-left:40%;" class="form-group">
-                        <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Nyhetstext</label>
-                        <textarea class="form-control" name="newstext" value="" rows="10" maxlength="288" style="max-height:500px; min-height:80px;" id="newstext">@Html.DisplayFor(Model => Model.News.text)</textarea>
-                        <small style="margin-right:69%" class="form-text text-muted">Fyll i nyhetstexten</small>
-                    </div>
+        <div>
+            <div class="login-form-container">
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Titel</label>
+                    <input type="text" class="form-control" maxlength="60" value="@Html.DisplayFor(Model => Model.News.title)" name="newstitle">
+                    <small style="margin-right:69%" class="form-text text-muted">Fyll i titeln på nyheten</small>
                 </div>
-                <div class="slutfor-button-login">
-                    <button class="btn btn-warning" value="@Html.DisplayFor(Model => Model.News.newsID)" name="newsbutton">Uppdatera nyhetsrutan</button>
+                <div style="margin-left:40%;" class="form-group">
+                    <label style="margin-right:69%; font-weight:bold; color:black; font-size:20px;">Nyhetstext</label>
+                    <textarea class="form-control" name="newstext" value="" rows="10" maxlength="288" style="max-height:500px; min-height:80px;" id="newstext">@Html.DisplayFor(Model => Model.News.text)</textarea>
+                    <small style="margin-right:69%" class="form-text text-muted">Fyll i nyhetstexten</small>
                 </div>
-
+            </div>
+            <div class="slutfor-button-login">
+                <button class="btn btn-warning" value="@Html.DisplayFor(Model => Model.News.newsID)" name="newsbutton">Uppdatera nyhetsrutan</button>
             </div>
 
         </div>
 
     </div>
+
+</div>
 }
 
 <script>
@@ -225,6 +246,13 @@
     }
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
+
+
+    function testa(objButton) {
+        var test = objButton.value;
+        document.getElementById("deletetire2").value = test;
+    }
+
 </script>
 
 
