@@ -101,6 +101,18 @@ namespace Gummigrossisten.Controllers
                 HttpContext.Response.SetCookie(cookie);
                 return RedirectToAction("Start", "Home", new { id = user.userID, search = "" });
             }
+
+            else if (user.fk_access_id == 5)
+            {
+                TempData["felinlogg"] = "";
+
+                HttpCookie cookie = new HttpCookie("User");
+                cookie.Expires = DateTime.Now.AddHours(5);
+                cookie.Value = user.userID.ToString();
+                HttpContext.Response.SetCookie(cookie);
+                return RedirectToAction("Start", "Home", new { id = user.userID, search = "" });
+            }
+
             else
             {
                 TempData["felinlogg"] = "";
@@ -608,6 +620,10 @@ namespace Gummigrossisten.Controllers
                 if(pricelist == "DYRA PRISLISTAN")
                 {
                     theuser.fk_access_id = 3;
+                }
+                if (pricelist == "EX.MOMS PRISLISTAN")
+                {
+                    theuser.fk_access_id = 5;
                 }
 
                 dbc.CreateUser(theuser);

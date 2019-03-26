@@ -58,13 +58,21 @@
                     <th class="tableth" scope="col">Rullmotstånd</th>
                     <th class="tableth" scope="col">Bromssträcka</th>
                     <th class="tableth" scope="col">Ljudnivå(dB)</th>
-                    <th class="tableth" scope="col">Pris inkl. moms</th>
+                    @if (TempData["price"].ToString() == "5")
+                    {
+                        <th class="tableth" scope="col">Pris ex. moms</th>
+                    }
+                    else
+                    {
+                        <th class="tableth" scope="col">Pris inkl. moms</th>
+                    }
+                    
                     <th class="tableth" scope="col">Lagersaldo</th>
                 </tr>
             </thead>
             @foreach (var item in Model.TireList)
             {
-                if (TempData["price"].ToString() == "2")
+                if (TempData["price"].ToString() == "2"|| TempData["price"].ToString() == "5")
                 {
                     <tr>
                         <th class="tabletd">@Html.DisplayFor(Model => item.brand)</th>
